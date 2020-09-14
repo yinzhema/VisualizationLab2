@@ -5,7 +5,7 @@
 
 // CHART AREA
 
-let margin = { top: 40, right: 20, bottom: 40, left: 90 },
+let margin = { top: 40, right: 200, bottom: 40, left: 200 },
   width =
     document.querySelector("#chart-area").clientWidth -
     margin.left -
@@ -98,14 +98,8 @@ function renderBarChart(data) {
     .attr("width", x.bandwidth())
     .on("mouseover", function(event, d) {
       //Get this bar's x/y values, then augment for the tooltip
-      let xPosition =
-        margin.left +
-        width / 2 +
-        parseFloat(d3.select(this).attr("x")) +
-        x.bandwidth() / 2;
-      let yPosition =
-        margin.top + parseFloat(d3.select(this).attr("y")) / 2 + height;
-
+      let xPosition=margin.left+x.bandwidth()/2+parseFloat(d3.select(this).attr("x"));
+      let yPosition =margin.top+height-120+parseFloat(d3.select(this).attr("y"));
       //Update the tooltip position and value
       d3.select("#tooltip")
         .style("left", xPosition + "px")
@@ -120,7 +114,6 @@ function renderBarChart(data) {
       //Hide the tooltip
       d3.select("#tooltip").classed("hidden", true);
     });
-
   // ---- DRAW AXIS	----
   xAxisGroup = svg
     .select(".x-axis")
@@ -155,4 +148,5 @@ function shortenString(content, maxLength) {
   );
 
   return trimmedString;
+  //return content.split(",")[0];
 }
